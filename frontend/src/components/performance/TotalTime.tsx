@@ -1,4 +1,4 @@
-import { Box, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Stack, Text } from "@chakra-ui/react";
+import { Box, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Text } from "@chakra-ui/react";
 import BoxTitle from "./BoxTitle";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { getTimeDifference, getTimePercentage } from "../../helpers/utils";

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Badge, Box, Checkbox, HStack, Stack,
+    Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Checkbox, HStack, Stack,
     Text
 } from "@chakra-ui/react";
 import { useQuizStore } from "../../store/useQuizStore";
