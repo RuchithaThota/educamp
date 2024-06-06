@@ -151,7 +151,7 @@ const user_resetPassword = async (req, res) => {
 
 const user_google_callback = async (req, res) => {
     const { user, token } = req.user;
-    return res.redirect(`${keys.clientBaseUrl}/auth/success?token=${token}`);
+    return res.redirect(`${keys.clientBaseUrl}auth/success?token=${token}`);
 }
 
 
