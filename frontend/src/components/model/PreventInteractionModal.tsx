@@ -1,11 +1,9 @@
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useQuizStore } from "../../store/useQuizStore";
 
 type PreventInteractionModalProps = { isOpen: boolean, onClose: () => void }
 const PreventInteractionModal = ({ isOpen, onClose }: PreventInteractionModalProps) => {
     const navigate = useNavigate();
-    const { setEndTime } = useQuizStore();
     //JSX
     return <Modal
         isCentered
@@ -25,7 +23,6 @@ const PreventInteractionModal = ({ isOpen, onClose }: PreventInteractionModalPro
                 <Button
                     onClick={() => {
                         onClose(); navigate('/');
-                        setEndTime(new Date().toUTCString())
                     }}
                     colorScheme="red" marginRight={'15px'}>Leave</Button>
                 <Button onClick={onClose}>Got it</Button>

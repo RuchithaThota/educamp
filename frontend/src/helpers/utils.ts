@@ -1,4 +1,4 @@
-import { DIFFICULTY_LEVELS, QUIZE_TIME } from "../constants";
+import { DIFFICULTY_LEVELS } from "../constants";
 import { COLORS, MESSAGES, PERFORMANCE } from "../types";
 
 export const getCurrentTime = () => {

@@ -7,7 +7,7 @@ import QuizTimeupModal from '../model/QuizTimeupModal';
 function Timer() {
     const { quiz } = useQuizStore();
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft('00:00:30'));
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen, onOpen } = useDisclosure();
     //useEffect
     useEffect(() => {
         const timer = setInterval(() => {
@@ -47,7 +47,7 @@ function Timer() {
                     {timeLeft}
                 </Text>
             </div>
-            <QuizTimeupModal isOpen={isOpen} onClose={onClose} />
+            <QuizTimeupModal isOpen={isOpen} />
         </Box>
     );
 }

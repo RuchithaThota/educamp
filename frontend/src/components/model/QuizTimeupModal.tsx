@@ -1,8 +1,8 @@
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
-import {  useState } from "react";
+import { useState } from "react";
 import { useFetchResultSubmit } from "../../hooks/fetch/useFetchResultSubmit";
 
-const QuizTimeupModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
+const QuizTimeupModal = ({ isOpen }: { isOpen: boolean }) => {
     const [shouldFetchSubmitResult, setShouldFetchSubmitResult] = useState(false);
     const { loading } = useFetchResultSubmit(shouldFetchSubmitResult);
     //JSX

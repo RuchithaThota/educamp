@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Answer, Question, Quiz, ResultType } from "../types";
+import { Answer, Question, Quiz } from "../types";
 import { devtools, persist } from "zustand/middleware";
 
 interface QuizState {
@@ -11,14 +11,12 @@ interface QuizState {
   setQuiz: (quiz: Quiz) => void;
   answers: Answer[];
   setAnswers: (answers: Answer[]) => void;
-  // result: ResultType | null;
-  // setResult: (result: ResultType | null) => void;
 }
 
 export const useQuizStore = create<QuizState>()(
   devtools(
     persist(
-      (set, get) => ({
+      (set) => ({
         loading: false,
         setLoading: (loading: boolean) => set({ loading }),
         questions: [],
@@ -27,8 +25,6 @@ export const useQuizStore = create<QuizState>()(
         setAnswers: (answers: Answer[]) => set({ answers }),
         quiz: { title: "", description: "", instructions: [], timeLeft: "" },
         setQuiz: (quiz: Quiz) => set({ quiz }),
-        // result: null,
-        // setResult: (result: ResultType | null) => set({ result }),
       }),
       {
         name: "quiz-storage",
