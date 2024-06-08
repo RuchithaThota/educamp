@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { user_signup, user_login, user_forgotPassword, user_resetPassword, user_google_callback, user_verifyResetPasswordOtp, user_verifyEmail } = require("../controllers/authController");
+const { user_signup, user_login, user_forgotPassword, user_resetPassword, user_google_callback, user_verifyResetPasswordOtp} = require("../controllers/authController");
 const { signupValidationRules, loginValidationRules, validate } = require("../validators/userValidator");
 const passport = require("passport");
 

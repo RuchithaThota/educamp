@@ -122,7 +122,6 @@ const user_google_callback = async (req, res) => {
 
 module.exports = {
     user_signup,
-    user_verifyEmail,
     user_login,
     user_forgotPassword,
     user_verifyResetPasswordOtp,
