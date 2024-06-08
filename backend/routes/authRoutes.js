@@ -8,7 +8,6 @@ router.post('/signup', signupValidationRules(), validate, user_signup);
 router.post('/login', loginValidationRules(), validate, user_login);
 router.post('/forgot-password', user_forgotPassword);
 router.post('/verify/reset-password/otp', user_verifyResetPasswordOtp);
-router.post('/verify/email', user_verifyEmail);
 router.post('/reset-password', user_resetPassword);
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
 router.get('/google/callback', passport.authenticate('google', { session: false }), user_google_callback)

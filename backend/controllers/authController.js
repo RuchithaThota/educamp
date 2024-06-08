@@ -39,41 +39,6 @@ const user_signup = async (req, res) => {
     }
 }
 
-const sendEmailVerificationCode = async (email, otp) => {
-    const mailOptions = {
-        from: keys.emailUser,
-        to: email,
-        subject: `Your activation code: ${otp}`,
-        html: `<h3>Hello!</h3><p>it's great to have you with us! To finish the registration,
-        enter or copy this code in the browser where you signed up.
-        your code will expires in 15min</p><h2>${otp}</h2>`
-    };
-    const transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-            user: keys.emailUser,
-            pass: keys.emailPassword
-        }
-    })
-    await transporter.sendMail(mailOptions);
-}
-
-const user_verifyEmail = async (req, res) => {
-    const { email, otp } = req;
-    try {
-        const user = await User.findOne({ email, verificationCode: otp });
-        if (!user || user.verificationCodeExpires < Date.now()) {
-            return res.status(400).send('Invalid email or verification code');
-        }
-        user.isVerified = true;
-        user.verificationCode = null;
-        user.verificationCodeExpires = null;
-        await user.save();
-        res.send('Email verified successfully');
-    } catch (err) {
-        res.status(500).send('Server error');
-    }
-}
 
 const user_login = async (req, res) => {
     const { email, password } = matchedData(req);
