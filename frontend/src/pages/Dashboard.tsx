@@ -1,5 +1,5 @@
 
-import Instructions from "../components/quiz/Instructions";
+import Instructions from "../components/Instructions";
 
 function Dashboard() {
     //JSX

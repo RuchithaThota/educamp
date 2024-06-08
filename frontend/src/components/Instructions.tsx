@@ -1,9 +1,9 @@
 import { Box, Button, Card, CardBody, CardFooter, Divider, Heading, Stack, Text } from "@chakra-ui/react"
-import { useQuizStore } from "../../store/useQuizStore"
+import { useQuizStore } from "../store/useQuizStore"
 import { useState } from "react"
-import { postRequest } from "../../services/api";
-import { QUIZ_START_URL } from "../../services/endpoints";
-import { useShowToast } from "../../hooks/useShowToast";
+import { postRequest } from "../services/api";
+import { QUIZ_START_URL } from "../services/endpoints";
+import { useShowToast } from "../hooks/useShowToast";
 import { useNavigate } from "react-router-dom";
 
 const Message = 'You have already taken test or did suspicious activity like reload, back button or close tab press';

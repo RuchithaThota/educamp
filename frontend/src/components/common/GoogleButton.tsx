@@ -1,8 +1,7 @@
 import { Button, Image } from '@chakra-ui/react';
-import googleIcon from '../../assets/googleIcon.png';
+import googleIcon from '../../assets/images/googleIcon.png';
 import { backend_base_url } from '../../env-variables';
 function GoogleButton() {
-
     return (
         <Button
             variant={'outline'}
