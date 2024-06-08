@@ -1,4 +1,4 @@
-const Result = require("../models/ResultSchema");
+const Result = require("../models/resultSchema");
 const QuestionOption = require("../models/questionOptionSchema");
 const Question = require("../models/questionSchema");
 const Quiz = require("../models/quizSchema");
