@@ -4,6 +4,7 @@ const cors = require('cors');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profileRoutes')
+const quizRoutes = require('./routes/quizRoutes')
 const questionRoutes = require("./routes/questionRoutes")
 const passportSetup = require('./config/passportSetup');
 const keys = require('./config/keys');
@@ -22,6 +23,7 @@ passportSetup();
 app.use('/auth', authRoutes)
 app.use('/api/user', profileRoutes)
 app.use("/api/question", questionRoutes)
+app.use("/api/quiz", quizRoutes);
 app.listen(keys.port, () => {
     console.log(`Listening to the port ${keys.port}`);
 })

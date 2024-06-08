@@ -1,30 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import { useQuizStore } from "../../store/useQuizStore";
-import { useEffect } from "react";
-import { getCurrentTime } from "../../helpers/utils";
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
+import {  useState } from "react";
+import { useFetchResultSubmit } from "../../hooks/fetch/useFetchResultSubmit";
 
-const QuizTimeupModal = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const { timeup, setTimeup, setEndTime } = useQuizStore();
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (timeup) {
-            onOpen();
-            setEndTime(getCurrentTime())
-        }
-    }, [timeup])
-    const onCloseModal = () => {
-        onClose(); setTimeup(false); navigate('/dashboard/view-performance')
-    }
+const QuizTimeupModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
+    const [shouldFetchSubmitResult, setShouldFetchSubmitResult] = useState(false);
+    const { loading } = useFetchResultSubmit(shouldFetchSubmitResult);
     //JSX
     return <Modal
         closeOnOverlayClick={false}
         isCentered
         size={'sm'}
         isOpen={isOpen}
-        onClose={onCloseModal}  >
+        onClose={() => setShouldFetchSubmitResult(true)}>
         <ModalOverlay />
         <ModalContent>
             <ModalHeader fontWeight={'semibold'}>
@@ -35,11 +22,12 @@ const QuizTimeupModal = () => {
             </ModalBody>
             <ModalFooter>
                 <Button
+                    isLoading={loading}
                     bg="primary.500"
                     _hover={{ bg: 'primary.600' }}
                     color="white"
                     fontSize={{ base: 'sm', md: 'md' }}
-                    onClick={onCloseModal}>
+                    onClick={() => setShouldFetchSubmitResult(true)}>
                     Check Performance
                 </Button>
             </ModalFooter>

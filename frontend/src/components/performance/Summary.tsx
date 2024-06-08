@@ -1,8 +1,11 @@
 import { Box, Stack, Text } from "@chakra-ui/react"
 import BoxTitle from "./BoxTitle"
 import { BellIcon } from "@heroicons/react/24/outline"
+import { getPerformanceMessage } from "../../helpers/utils"
 
-function Summary({ message }: { message: string }) {
+function Summary({ percentage }: { percentage: number }) {
+    const performance = getPerformanceMessage(percentage);
+    //JSX
     return (
         <Box bg="white" boxShadow={'base'} w={'100%'} padding={'15px'}>
             <BoxTitle title="Summary" />
@@ -21,7 +24,8 @@ function Summary({ message }: { message: string }) {
                         fontSize={'13px'}
                         marginLeft={'5px'}
                         fontWeight={'medium'}>
-                        {message}</Text>
+                        {performance.message}
+                    </Text>
                 </Stack>
             </div>
         </Box>

@@ -1,15 +1,15 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import HomeLayout from './layout/HomeLayout';
 import OAuthRedirect from './components/auth/OAuthRedirect';
 import React, { Suspense } from 'react';
 import FallbackSpinner from './components/common/FallbackSpinner';
 
+const HomeLayout = React.lazy(() => import("./layout/HomeLayout"));
 const Homepage = React.lazy(() => import('./pages/Homepage'));
-const ProtectedRoute = React.lazy(() => import('./routes/ProtectedRoute'));
+const DashboardLayout = React.lazy(() => import('./layout/DashboardLayout'));
 const Dashboard = React.lazy(() => import('./pages/Dashboard'));
+const Quiz = React.lazy(() => import('./pages/Quiz'));
 const Performance = React.lazy(() => import('./pages/Performance'));
-const Quiz = React.lazy(() => import('./components/quiz/Quiz'));
 
 function App() {
   return (
@@ -38,7 +38,7 @@ function App() {
           path="/dashboard"
           element={
             <Suspense fallback={<FallbackSpinner />}>
-              <ProtectedRoute />
+              <DashboardLayout />
             </Suspense>
           }
         >

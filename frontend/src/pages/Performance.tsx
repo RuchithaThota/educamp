@@ -1,72 +1,52 @@
-import { Navigate } from "react-router-dom";
-import { useQuizStore } from "../store/useQuizStore"
 import { Stack, VStack } from "@chakra-ui/react";
-import TotalTime from "../components/performance/TotalTime";
-import Result from "../components/performance/Result";
-import QuestionsAccordion from "../components/performance/QuestionsAccordion";
 import Respondent from "../components/performance/Respondent";
 import Summary from "../components/performance/Summary";
-import { COLORS, MESSAGES, PERFORMANCE } from "../types";
+import { useQuizStore } from "../store/useQuizStore";
+import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getRequest } from "../services/api";
+import { QUIZ_RESULT_URL } from "../services/endpoints";
+import FallbackSpinner from "../components/common/FallbackSpinner";
+import { ResultType } from "../types";
+import Result from "../components/performance/Result";
+import TotalTime from "../components/performance/TotalTime";
+import QuestionsAccordion from "../components/performance/QuestionsAccordion";
+
 
 function Performance() {
-    const { attemptedQuestions, questions, totalPoints } = useQuizStore();
-    //getPercentage
-    const totalPts = totalPoints();
-    const questionsMap = new Map(questions.map((question) => [question._id, question.points]))
-    const attemptedPts = attemptedQuestions.reduce((totalUserScore, attemptedQ) => {
-        if (attemptedQ.isCorrect) {
-            return totalUserScore + (questionsMap.get(attemptedQ.questionId) || 0);
-        }
-        return totalUserScore;
-    }, 0)
-    const percentage = parseInt(((attemptedPts / totalPts) * 100).toFixed(2));
-    //getPerformanceMessage
-    const getPerformanceMessage = () => {
-        if (percentage >= 80) {
-            return {
-                message: MESSAGES.EXCELLENT,
-                title: PERFORMANCE.EXCELLENT,
-                color: COLORS.EXCELLENT,
-            };
-        } else if (percentage >= 60) {
-            return {
-                message: MESSAGES.PASSED,
-                title: PERFORMANCE.PASSED,
-                color: COLORS.PASSED
-            };
-        } else if (percentage >= 35) {
-            return {
-                message: MESSAGES.AVERAGE,
-                title: PERFORMANCE.AVERAGE,
-                color: COLORS.AVERAGE
-            };
-        }
-        else {
-            return {
-                message: MESSAGES.FAILED,
-                title: PERFORMANCE.FAILED,
-                color: COLORS.FAILED
-            }
-        }
+    const { answers } = useQuizStore();
+    const [loading, setLoading] = useState(false);
+    const [result, setResult] = useState<ResultType | null>(null)
+    //getQuizResult
+    const getQuizResult = async () => {
+        try {
+            setLoading(true);
+            const data = await getRequest(QUIZ_RESULT_URL);
+            console.log(data);
+            setResult(data);
+        } catch (error: any) {
+            console.log(error.response.data);
+        } finally { setLoading(false) }
     }
-    const { message, title, color } = getPerformanceMessage();
-    //JSX
-    if (attemptedQuestions.length === 0) {
-        return <Navigate to="/dashboard" />
-    }
-    return (
-        <VStack spacing={'15px'}>
-            <Respondent />
-            <Summary message={message} />
-            <Stack spacing={'15px'} width={'100%'} direction={{ base: 'column', md: 'row' }}>
-                <Result percentage={percentage} points={attemptedPts}
-                    color={color}
-                    title={title} />
-                <TotalTime />
-            </Stack>
-            <QuestionsAccordion />
-        </VStack>
-    )
+    useEffect(() => {
+        getQuizResult();
+    }, [])
+    if (answers.length === 0) return <Navigate to="/" />
+    if (loading) return <FallbackSpinner />
+    if (result)
+        return (
+            <VStack spacing={'15px'}>
+                <Respondent />
+                <Summary percentage={result.percentage} />
+                <Stack spacing={'15px'} width={'100%'} direction={{ base: 'column', md: 'row' }}>
+                    <Result percentage={result.percentage}
+                        score={result.userScore}
+                        totalScore={result.totalScore} />
+                    <TotalTime createdAt={result.createdAt} updatedAt={result.updatedAt} />
+                </Stack>
+                <QuestionsAccordion />
+            </VStack>
+        )
 }
 
 export default Performance;

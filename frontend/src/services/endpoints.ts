@@ -1,3 +1,5 @@
+import { quiz_id } from "../env-variables";
+
 export const SIGNUP_URL = "/auth/signup";
 
 export const LOGIN_URL = "/auth/login";
@@ -10,8 +12,16 @@ export const RESET_PASSWORD_URL = "/auth/reset-password";
 
 export const USER_PROFILE_URL = "/api/user/profile";
 
+export const QUIZ_URL = `/api/quiz/${quiz_id}`;
+
+export const QUIZ_START_URL = `/api/quiz/${quiz_id}/start`;
+
+export const QUIZ_SUBMIT_URL = `/api/quiz/${quiz_id}/submit`;
+
+export const QUIZ_RESULT_URL = `/api/quiz/${quiz_id}/result`;
+
 export const ALL_QUESTIONS_URL = "/api/question/all";
 
-export const ALL_ATTEMPTED_QUESTIONS_URL = "/api/question/attempted/all";
+export const USER_ANSWER_URL = "/api/question/user-answer";
 
-export const ATTEMPTED_QUESTION_URL = "/api/question/attempted";
+export const ALL_USER_ANSWER_URL = "/api/question/user-answer/all";

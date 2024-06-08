@@ -30,29 +30,46 @@ export interface RawUser {
   profileUrl?: string;
   token: string;
 }
+export type UserResponse = {
+  msg: string;
+  user: RawUser;
+};
 
-export interface Question {
-  _id: string;
-  question: string;
-  options: string[];
-  answerIndex: number;
-  tag: string;
-  difficulty: string;
-  points: number;
-}
+export type Quiz = {
+  timeLeft: string;
+  title: string;
+  description: string;
+  instructions: string[];
+};
 
-export type AttemptedQuestion = {
+export type QuestionOption = {
   _id: string;
   questionId: string;
-  selectedAnswerIndex: number;
+  option: string;
   isCorrect: boolean;
+};
+export interface Question {
+  _id: string;
+  text: string;
+  tag: string;
   difficulty: string;
+  points: string;
+  options: QuestionOption[];
+  correct_option: QuestionOption;
+  answerIndex: number;
+}
+
+export type Answer = {
+  _id: string;
+  questionId: string;
+  isCorrect: boolean;
+  selectedOption: string;
 };
 
 export enum DIFFICULTY {
-  EASY = "easy",
-  MEDIUM = "medium",
-  HARD = "hard",
+  EASY = "Easy",
+  MEDIUM = "Medium",
+  HARD = "Hard",
 }
 
 export enum PERFORMANCE {
@@ -81,4 +98,11 @@ export enum LEVEL_COLORS {
   MEDIUM = "orange",
   HARD = "red",
 }
-export type UserResponse = { msg: string; user: RawUser };
+
+export type ResultType = {
+  percentage: number;
+  totalScore: number;
+  userScore: number;
+  createdAt: string;
+  updatedAt: string;
+};

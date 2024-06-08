@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const keys = require('../config/keys');
+const Question = require('../models/questionSchema');
+const Quiz = require('../models/quizSchema');
+const QuestionOption = require('../models/questionOptionSchema');
 
 const connectDB = async () => {
     try {

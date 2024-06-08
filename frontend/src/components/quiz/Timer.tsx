@@ -1,30 +1,34 @@
-import { Box, Center, Divider, Text } from '@chakra-ui/react';
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
+import { Box, Center, Divider, Heading, Text, useDisclosure } from '@chakra-ui/react';
 import { useQuizStore } from '../../store/useQuizStore';
-import { QUIZE_TIME } from '../../constants';
+import { flexCenter } from '../../theme';
+import QuizTimeupModal from '../model/QuizTimeupModal';
 
 function Timer() {
-    const [minutes, setMinutes] = useState(QUIZE_TIME);
-    const [seconds, setSeconds] = useState(0);
-    const { setTimeup } = useQuizStore();
-    //timeoutCallback
-    const timeoutCallback = () => {
-        if (seconds === 0) {
-            setMinutes(minutes - 1);
-            setSeconds(59);
-        } else {
-            setSeconds(seconds - 1)
-        }
-    }
+    const { quiz } = useQuizStore();
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft('00:00:30'));
+    const { isOpen, onOpen, onClose } = useDisclosure();
     //useEffect
     useEffect(() => {
-        const timerId = setTimeout(timeoutCallback, 1000)
-        if (seconds === 0 && minutes === 0) {
-            setTimeup(true);
-            clearTimeout(timerId);
-            return;
-        }
-    }, [seconds, minutes])
+        const timer = setInterval(() => {
+            setTimeLeft((prevTimeLeft) => {
+                const [hours, minutes, seconds] = prevTimeLeft.split(':').map(Number);
+                let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+                if (totalSeconds <= 0) {
+                    clearInterval(timer);
+                    onOpen();
+                    return "00:00:00";
+                }
+                totalSeconds -= 1;
+                const newHours = Math.floor(totalSeconds / 3600);
+                const newMinutes = Math.floor((totalSeconds % 3600) / 60);
+                const newSeconds = totalSeconds % 60;
+                return `${newHours.toString().padStart(2, '0')}:${newMinutes.toString().padStart(2, '0')}:
+                ${newSeconds.toString().padStart(2, '0')}`;
+            });
+        }, 1000);
+        return () => clearInterval(timer);
+    }, []);
     //JSX
     return (
         <Box bg={'white'}
@@ -33,20 +37,25 @@ function Timer() {
             padding="20px"
             display={'flex'}
             alignItems={'center'}>
-            <Text fontSize={'16px'} fontWeight={'semibold'}>Mathematics Test</Text>
+            <Heading size={{ base: 'sm', md: 'md' }} fontWeight={'semibold'}>{quiz.title}</Heading>
             <Center height='30px' marginInline={'10px'}>
                 <Divider orientation='vertical' />
             </Center>
-            <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
-                <Text fontSize={'14px'} marginRight={'5px'} fontWeight={'medium'} color="grey.400">
-                    Time Left :
+            <div style={flexCenter}>
+                <Text fontSize={{ base: 'sm', md: 'md' }} fontWeight={'medium'} color="grey.500">Time Left :</Text>
+                <Text fontSize={{ base: 'sm', md: 'md' }} marginLeft={'5px'} fontWeight='bold' color="primary.600">
+                    {timeLeft}
                 </Text>
-                <Text fontSize='16px' fontWeight='bold' color="primary.600">
-                    {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-                </Text>
-            </Box>
-        </Box >
-    )
+            </div>
+            <QuizTimeupModal isOpen={isOpen} onClose={onClose} />
+        </Box>
+    );
 }
 
-export default Timer
+function calculateTimeLeft(timeString: string) {
+    const [hours, minutes, seconds] = timeString.split(':').map(Number);
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:
+    ${seconds.toString().padStart(2, '0')}`;
+}
+
+export default Timer;

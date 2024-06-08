@@ -2,15 +2,20 @@ import { Avatar, Button, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, Men
 import { useAuthStore } from "../store/useAuthStore"
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { login_token } from "../env-variables";
+import { useQuizStore } from "../store/useQuizStore";
 
 function UserProfile() {
     const { user, authType, setAuthType, setIsAuth, setUser } = useAuthStore();
+    const { setQuestions, setAnswers, setQuiz } = useQuizStore();
     //handleLogout
     const handleLogout = () => {
         localStorage.removeItem(login_token);
         setIsAuth(false);
         setAuthType(null);
         setUser(null);
+        setQuestions([]);
+        setAnswers([]);
+        setQuiz({ title: '', description: "", timeLeft: "", instructions: [] })
     }
     if (!user) return null;
     const { username, name, email, profileUrl } = user;
