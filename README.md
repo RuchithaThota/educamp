@@ -1,46 +1,48 @@
-# Online Quiz Platform
+# Online Quiz Platform with CAT Experience, Google OAuth Login, and Personalized Dashboard
 
 ## Introduction
-Welcome to our online quiz platform! This platform allows users to create, take, and manage quizzes on various topics. It's built using the MERN stack (MongoDB, Express.js, React, and Node.js) and offers features like user authentication, quiz creation, real-time scoring, and more.
+Welcome to our Online Quiz Platform! This platform aims to provide users with an interactive and personalized quiz-taking experience. It features user authentication with Google OAuth login, a personalized dashboard, and a quiz system based on Computerized Adaptive Testing (CAT) principles.
 
 ## Features
-- **User Authentication**: Users can sign up, log in, and log out securely.
-- **Quiz Management**: Create, edit, delete quizzes with ease.
-- **Quiz Taking**: Users can take quizzes and get instant feedback.
-- **Real-time Scoring**: Scores are calculated instantly upon completion.
-- **Responsive Design**: The platform is optimized for various devices.
+- **User Authentication**: Users can log in using their email and password or via Google OAuth for a seamless login experience. New users can sign up for an account.
+- **Personalized Dashboard**: Upon successful authentication, users are directed to a personalized dashboard where they can start an online quiz.
+- **Quiz System with CAT Experience**: The quiz system consists of 20 multiple-choice questions (MCQ) with varying initial weightages based on difficulty. CAT is implemented to adapt the quiz difficulty based on the user's performance.
+- **Result Evaluation and Reporting**: Upon quiz submission, a detailed report is generated, evaluating the user's performance and providing suggestions for further improvement.
+- **Technologies Used**: The project is built using the MERN stack, including MongoDB, Express.js, React, and Node.js.
 
 ## Installation
-To run the application locally, follow these steps:
+To set up the project locally, follow these steps:
+1. Clone the repository: `git clone https://github.com/yourusername/online-quiz-platform.git`
+2. Navigate to the project directory: `cd online-quiz-platform`
+3. Install dependencies:
+   - Backend: `cd backend && npm install`
+   - Frontend: `cd frontend && npm install`
+4. Configure environment variables:
+   - Create a `.env` file in the `backend` directory and add the following:
+     ```
+     MONGO_URI=your_mongodb_uri
+     JWT_SECRET=your_jwt_secret
+     ```
+   - Ensure to replace `your_mongodb_uri` with your MongoDB connection string and `your_jwt_secret` with a secret key for JWT.
+5. Start the backend server: `cd backend && npm start`
+6. Start the frontend development server: `cd frontend && npm start`
 
-### Backend
-1. Navigate to the `backend` directory:
-    ```bash
-    cd online-quiz-platform/backend
-    ```
-2. Install dependencies:
-    ```bash
-    npm install
-    ```
-3. Create a `.env` file and add the following environment variables:
-    ```env
-    MONGO_URI=<your-mongodb-uri>
-    JWT_SECRET=<your-jwt-secret>
-    PORT=5000
-    ```
+## Usage
+1. Open your browser and navigate to `http://localhost:3000` to access the application.
+2. Log in using your email and password or via Google OAuth.
+3. Upon successful authentication, you will be redirected to your personalized dashboard.
+4. Start an online quiz from the dashboard and enjoy the CAT experience!
+5. Upon quiz submission, review the detailed performance report and suggestions for improvement.
 
-### Frontend
-1. Navigate to the `frontend` directory:
-    ```bash
-    cd ../frontend
-    ```
-2. Install dependencies:
-    ```bash
-    npm install
-    ```
+## Documentation
+The project includes detailed documentation to guide you through the installation process, usage, and codebase structure. Check the `docs` directory for more information.
 
-## Running the Application
-### Backend
-To start the backend server, run:
-```bash
-npm start
+## Contribution
+Contributions are welcome! If you'd like to contribute to the project, please follow our [contribution guidelines](CONTRIBUTING.md).
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+Special thanks to all contributors and open-source projects that made this platform possible.
+
