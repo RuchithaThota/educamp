@@ -29,6 +29,30 @@ To set up the project locally, follow these steps:
      GOOGLE_CLIENT_SECRET=your_google_client_secret
      ```
    - Ensure to replace `your_mongodb_uri` with your MongoDB connection string and `your_jwt_secret` with a secret key for JWT.
+   - # Online Quiz Platform with CAT Experience, Google OAuth Login, and Personalized Dashboard
+
+## Configuration Variables
+
+Before running the application, you need to set up the following environment variables:
+
+- **EMAIL_USER**: If your application sends emails (e.g., for password reset), you'll need an email account to send them from. Provide the email address for this account.
+
+- **EMAIL_PASSWORD**: This is the app-specific password generated for your email account. To generate an app-specific password:
+  1. Enable Two-Factor Authentication (2FA) on your email account.
+  2. Access your email account's security settings.
+  3. Look for an option to generate app-specific passwords (often found in the "Security" or "App Passwords" section).
+  4. Create a new app password and specify "Nodemailer" or a relevant identifier.
+  5. Copy the generated password and use it as the `EMAIL_PASSWORD` environment variable.
+
+- **GOOGLE_CLIENT_ID** and **GOOGLE_CLIENT_SECRET**: To enable Google OAuth for user authentication, you need to set up a project in the Google Developers Console and obtain OAuth 2.0 credentials. Here's how:
+  1. Go to the [Google Developers Console](https://console.developers.google.com/).
+  2. Create a new project or select an existing one.
+  3. Navigate to the "Credentials" tab.
+  4. Click on "Create credentials" and select "OAuth client ID".
+  5. Choose "Web application" as the application type.
+  6. Add `http://localhost:5000/auth/google/callback` as an authorized redirect URI (replace `5000` with your actual port if it's different).
+  7. Click "Create" and copy the generated client ID and client secret. Use these values as the `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` environment variables respectively.
+
 5. Start the backend server: `npm run dev`
 6. Start the frontend development server: `cd frontend && npm run dev`
 
