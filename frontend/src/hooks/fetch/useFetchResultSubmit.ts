@@ -42,7 +42,6 @@ export const useFetchResultSubmit = (shouldFetchSubmitResult: boolean) => {
         navigate("/dashboard/view-performance");
         setLoading(false);
         console.log(data,"resultsubmitted");
-        
       }
     } catch (error: any) {
       console.log(error.response.data, "error");

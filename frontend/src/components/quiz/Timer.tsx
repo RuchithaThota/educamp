@@ -6,7 +6,7 @@ import QuizTimeupModal from '../model/QuizTimeupModal';
 
 function Timer() {
     const { quiz } = useQuizStore();
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft('00:00:30'));
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(quiz.timeLeft));
     const { isOpen, onOpen } = useDisclosure();
     //useEffect
     useEffect(() => {

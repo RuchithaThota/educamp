@@ -62,7 +62,7 @@ const user_answer = async (req, res) => {
         if (!quiz) return res.status(400).send('Quiz not found')
         const result = await Result.findOne({ userId, quizId: quiz._id })
         if (!result) return res.status(400).send('Result not found!')
-        let userAnswer = await UserAnswer.findOne({ questionId, userId });
+        let userAnswer = await UserAnswer.findOne({ questionId, userId, resultId: result._id });
         if (userAnswer) return res.status(400).send('Already Attempted Question')
         //save user answer
         const isCorrect = question.correct_option._id.toString() === selectedOption;

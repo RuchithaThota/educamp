@@ -2,7 +2,7 @@ import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Modal
 import { useState } from "react";
 import { useFetchResultSubmit } from "../../hooks/fetch/useFetchResultSubmit";
 
-const QuizTimeupModal = ({ isOpen }: { isOpen: boolean }) => {
+const QuizTimeupModal = ({ isOpen, message = '' }: { isOpen: boolean, message?: string }) => {
     const [shouldFetchSubmitResult, setShouldFetchSubmitResult] = useState(false);
     const { loading } = useFetchResultSubmit(shouldFetchSubmitResult);
     //JSX
@@ -18,7 +18,7 @@ const QuizTimeupModal = ({ isOpen }: { isOpen: boolean }) => {
                 Time Up
             </ModalHeader>
             <ModalBody fontSize={'sm'} fontWeight={'normal'}>
-                Time's up! Your quiz session has ended. Thank you for participating.
+                {message ? message : "Time's up! Your quiz session has ended. Thank you for participating."}
             </ModalBody>
             <ModalFooter>
                 <Button

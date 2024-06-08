@@ -2,7 +2,7 @@ import { Stack, VStack } from "@chakra-ui/react";
 import Respondent from "../components/performance/Respondent";
 import Summary from "../components/performance/Summary";
 import { useQuizStore } from "../store/useQuizStore";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getRequest } from "../services/api";
 import { QUIZ_RESULT_URL } from "../services/endpoints";
@@ -17,13 +17,18 @@ function Performance() {
     const { answers } = useQuizStore();
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState<ResultType | null>(null)
+    const navigate = useNavigate();
     //getQuizResult
     const getQuizResult = async () => {
         try {
             setLoading(true);
             const data = await getRequest(QUIZ_RESULT_URL);
             console.log(data);
-            setResult(data);
+            if (data) {
+                setResult(data);
+            } else {
+                navigate('/')
+            }
         } catch (error: any) {
             console.log(error.response.data);
         } finally { setLoading(false) }

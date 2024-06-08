@@ -1,31 +1,45 @@
-import { useEffect, useState } from "react";
-import { Box, Button, Card, CardBody, CardFooter, CardHeader, HStack, Heading, Stack, Text, VStack } from "@chakra-ui/react";
+import { useCallback, useEffect, useState } from "react";
+import { Box, Button, Card, CardBody, CardFooter, CardHeader, HStack, Heading, Stack, Text, VStack, useDisclosure } from "@chakra-ui/react";
 import Timer from "../components/quiz/Timer";
 import Chip from "../components/common/Chip";
 import RadioQuestionOption from "../components/quiz/RadioQuestionOption";
 import { useQuizStore } from "../store/useQuizStore";
 import { DIFFICULTY, LEVEL_COLORS, Question } from "../types";
 import { useShowToast } from "../hooks/useShowToast";
-import { useNavigate } from "react-router-dom";
+import { useBeforeUnload } from "react-router-dom";
 import { getNextDifficultyLevel } from "../helpers/utils";
 import { postRequest } from "../services/api";
 import { USER_ANSWER_URL } from "../services/endpoints";
+import { usePreventBackButton } from "../hooks/useNavigationGuard";
+import PreventInteractionModal from "../components/model/PreventInteractionModal";
+import QuizTimeupModal from "../components/model/QuizTimeupModal";
 
 
 function Quiz() {
     const { questions, answers, setAnswers } = useQuizStore();
     const showToast = useShowToast();
-    const navigate = useNavigate();
     const [question, setQuestion] = useState<Question>(questions[0]);
     const [remainedQuestions, setRemainedQuestions] = useState<Question[]>([questions[0]]);
     const [count, setCount] = useState(1);
     const [selectedOptionId, setSelectedOptionId] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [hasChanged, setHasChanged] = useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen: isOpenTimeup, onOpen: onOpenTimeup } = useDisclosure();
+    const [message, setMessage] = useState('');
+    //useEffect
     useEffect(() => {
-        if (answers.length > 0) {
-            navigate("/dashboard/view-performance")
+        if (answers.length > 0 && !hasChanged) {
+            onOpenTimeup();
+            setMessage('Due to suspicious activity like reload, back button press your quiz was ended')
         }
     }, [])
+    //preventInteractions
+    usePreventBackButton(onOpen);
+    useBeforeUnload(useCallback((e) => {
+        e.preventDefault();
+        setHasChanged(true);
+    }, []))
     //changeSelectedOptionId
     const changeSelectedOptionId = (value: string) => {
         setSelectedOptionId(value)
@@ -37,7 +51,10 @@ function Quiz() {
     // handleSubmitAnswer
     const handleSubmitAnswer = () => {
         if (!selectedOptionId) { return showToast('please select an option', 'warning'); }
-        if (count === questions.length) { return navigate('/dashboard/view-performance'); }
+        if (count === questions.length && remainedQuestions.length === questions.length) {
+            onOpenTimeup();
+            return;
+        }
         setIsLoading(true)
         const rqs = getRemainingQuestions();
         const isCorrect = question.correct_option._id === selectedOptionId || false;
@@ -117,6 +134,8 @@ function Quiz() {
                         Submit Answer
                     </Button>
                 </CardFooter>
+                <QuizTimeupModal isOpen={isOpenTimeup} message={message} />
+                <PreventInteractionModal isOpen={isOpen} onClose={onClose} />
             </Card>
         </VStack>
     )
