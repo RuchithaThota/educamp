@@ -1,4 +1,4 @@
-const Result = require("../models/ResultSchema");
+const Result = require("../models/resultSchema");
 const Quiz = require("../models/quizSchema");
 
 const getQuizById = async (req, res) => {
