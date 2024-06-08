@@ -21,9 +21,16 @@ To set up the project locally, follow these steps:
 ## Configuration Variables
 
 Before running the application, you need to set up the following environment variables:
-   - Create a `.env` file in the `root` directory and add the following:
+   - Create a `cd frontend .env` file in the `root` directory for frontend and add the following:
+     ```
+     VITE_BACKEND_BASE_URL=http://localhost:5000
+     VITE_LOGIN_TOKEN=my-test-token
+     VITE_QUIZ_ID=get-quizId-from-mongodb
+     ```
+   - Create a `.env` file in the `root` directory  for backend and add the following:
      ```
      PORT=5000
+     CLIENT_BASE_URL=http://localhost:5173
      MONGO_URI=your_mongodb_uri
      JWT_SECRET=your_jwt_secret
      EMAIL_USER=your_email
