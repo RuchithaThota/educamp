@@ -17,7 +17,10 @@ To set up the project locally, follow these steps:
 3. Install dependencies:
    - Backend: `npm install`
    - Frontend: `cd frontend && npm install`
-4. Configure environment variables:
+
+## Configuration Variables
+
+Before running the application, you need to set up the following environment variables:
    - Create a `.env` file in the `root` directory and add the following:
      ```
      PORT=5000
@@ -29,10 +32,6 @@ To set up the project locally, follow these steps:
      GOOGLE_CLIENT_SECRET=your_google_client_secret
      ```
    - Ensure to replace `your_mongodb_uri` with your MongoDB connection string and `your_jwt_secret` with a secret key for JWT.
-
-## Configuration Variables
-
-Before running the application, you need to set up the following environment variables:
 
 - **EMAIL_USER**: If your application sends emails (e.g., for password reset), you'll need an email account to send them from. Provide the email address for this account.
 
