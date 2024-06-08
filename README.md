@@ -12,37 +12,31 @@ Welcome to our Online Quiz Platform! This platform aims to provide users with an
 
 ## Installation
 To set up the project locally, follow these steps:
-1. Clone the repository: `git clone https://github.com/yourusername/online-quiz-platform.git`
-2. Navigate to the project directory: `cd online-quiz-platform`
+1. Clone the repository: `git clone https://github.com/RuchithaThota/educamp.git`
+2. Navigate to the project directory: `cd educamp`
 3. Install dependencies:
-   - Backend: `cd backend && npm install`
+   - Backend: `npm install`
    - Frontend: `cd frontend && npm install`
 4. Configure environment variables:
-   - Create a `.env` file in the `backend` directory and add the following:
+   - Create a `.env` file in the `root` directory and add the following:
      ```
+     PORT=5000
      MONGO_URI=your_mongodb_uri
      JWT_SECRET=your_jwt_secret
+     EMAIL_USER=your_email
+     EMAIL_PASSWORD=your_google_app_password
+     GOOGLE_CLIENT_ID=your_google_client_id
+     GOOGLE_CLIENT_SECRET=your_google_client_secret
      ```
    - Ensure to replace `your_mongodb_uri` with your MongoDB connection string and `your_jwt_secret` with a secret key for JWT.
-5. Start the backend server: `cd backend && npm start`
-6. Start the frontend development server: `cd frontend && npm start`
+5. Start the backend server: `npm run dev`
+6. Start the frontend development server: `cd frontend && npm run dev`
 
 ## Usage
-1. Open your browser and navigate to `http://localhost:3000` to access the application.
+1. Open your browser and navigate to `http://localhost:5173` to access the application.
 2. Log in using your email and password or via Google OAuth.
 3. Upon successful authentication, you will be redirected to your personalized dashboard.
 4. Start an online quiz from the dashboard and enjoy the CAT experience!
 5. Upon quiz submission, review the detailed performance report and suggestions for improvement.
 
-## Documentation
-The project includes detailed documentation to guide you through the installation process, usage, and codebase structure. Check the `docs` directory for more information.
-
-## Contribution
-Contributions are welcome! If you'd like to contribute to the project, please follow our [contribution guidelines](CONTRIBUTING.md).
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Acknowledgements
-Special thanks to all contributors and open-source projects that made this platform possible.
 
