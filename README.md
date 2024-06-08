@@ -29,7 +29,6 @@ To set up the project locally, follow these steps:
      GOOGLE_CLIENT_SECRET=your_google_client_secret
      ```
    - Ensure to replace `your_mongodb_uri` with your MongoDB connection string and `your_jwt_secret` with a secret key for JWT.
-   - # Online Quiz Platform with CAT Experience, Google OAuth Login, and Personalized Dashboard
 
 ## Configuration Variables
 
