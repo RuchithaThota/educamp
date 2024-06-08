@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import OAuthRedirect from './components/auth/OAuthRedirect';
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import FallbackSpinner from './components/common/FallbackSpinner';
 
 const HomeLayout = React.lazy(() => import("./layout/HomeLayout"));
@@ -12,6 +12,17 @@ const Quiz = React.lazy(() => import('./pages/Quiz'));
 const Performance = React.lazy(() => import('./pages/Performance'));
 
 function App() {
+  //useEffect
+  useEffect(() => {
+    const disableRightClick = (event: MouseEvent) => {
+      event.preventDefault();
+    };
+    document.addEventListener('contextmenu', disableRightClick);
+    return () => {
+      document.removeEventListener('contextmenu', disableRightClick);
+    };
+  }, []);
+  //JSX
   return (
     <>
       <Navbar />
